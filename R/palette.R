@@ -1,4 +1,5 @@
 
+#' @export
 paletero <- function(palette,  n = NULL, alpha = NULL, reverse = FALSE){
   if(!palette %in% availablePalettes())
     stop("Palette not available")

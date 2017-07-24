@@ -4,12 +4,12 @@
 \alias{previewColors}
 \title{Color previewing utility}
 \usage{
-previewColors(pal, values)
+previewColors(palette, values)
 }
 \arguments{
-\item{pal}{A color mapping function, like those returned from \code{\link{colorNumeric}}, et al}
-
 \item{values}{A set of values to preview colors for}
+
+\item{pal}{A color mapping function, like those returned from \code{\link{colorNumeric}}, et al}
 }
 \value{
 An HTML-based list of the colors and values

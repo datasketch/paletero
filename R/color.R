@@ -1,5 +1,5 @@
 
-
+#' @export
 paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = FALSE){
   if(!palette %in% availablePalettes())
     stop("Palette not available")
@@ -13,6 +13,7 @@ paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL, reverse
   colors
 }
 
+#' @export
 paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = FALSE){
   if(!palette %in% availablePalettes())
     stop("Palette not available")
@@ -29,18 +30,10 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL, reverse
   colors
 }
 
-
+#' @export
 availablePalettes <- function(){
   c(getViridisPalettes(), getBrewerPalettes())
 }
-
-catColor <- function(v,palette = NULL){
-  palette <- palette %||% "RdYlBu"
-  pal <- colorFactor(palette, levels = unique(v))
-  pal(v)
-}
-
-
 
 
 
