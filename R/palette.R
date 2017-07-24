@@ -35,6 +35,16 @@ brewer_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE) {
   # # Accent Dark2 Paired Pastel1 Pastel2 Set1 Set2 Set3
   # # c("Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd", "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral", "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3")
   brewer_palettes <- getBrewerPalettes()
+
+  if(palette %in% c("Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd")){
+    paletteType <- "sequential"
+  } else if (palette %in% c("BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn")){
+    paletteType <- "divergent"
+  } else if (palette %in% c("Spectral", "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3") ){
+    paletteType <- "qualitative"
+  }
+
+
   n_max <- RColorBrewer::brewer.pal.info[palette, "maxcolors"]
   if (is.null(n))
     n <- RColorBrewer::brewer.pal.info[palette, "maxcolors"]
@@ -43,8 +53,8 @@ brewer_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE) {
   if (n == 1) {
     colors <- colors[1]
   } else if (n == 2) {
-    #colors <- colors[c(1,n_max)]
-    colors <- colors[c(1,2)]
+    nn <- ifelse(paletteType == "qualitative", 2, n_max)
+    colors <- colors[c(1,nn)]
   } else if (n > 2){
     colors <- colors[1:n]
   }
