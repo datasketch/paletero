@@ -6,19 +6,8 @@
 #' @export
 previewColors <- function(palette, values) {
 
-  #pal <- paletero_pal(palette = palette, n = n)
-  if(is.character(values)){
-    v <- unique(values)
-    colors <- paletero_cat(v, palette)
-  }
-  if(is.numeric(values)){
-    v <- sort(unique(values))
-    v <- v[seq(1, length(v), by = length(v)/5)]
-    v <- v[seq(1, length(v), length.out = 5)]
-    colors <- paletero_num(v, palette)
-  }
   values <- v
-  names(values) <- colors
+  names(values) <- paletero(v, palette)
   pal <- function(x) names(x)
 
 

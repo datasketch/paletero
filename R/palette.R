@@ -1,16 +1,6 @@
 
-#' @export
-paletero <- function(palette,  n = NULL, alpha = NULL, reverse = FALSE){
-  if(!palette %in% availablePalettes())
-    stop("Palette not available")
-  if(palette %in% getBrewerPalettes())
-    return(brewer_pal(palette, n = n, alpha = alpha, reverse = reverse))
-  if(palette %in% getViridisPalettes())
-    return(viridis_pal(palette, n = n, alpha = alpha, reverse = reverse))
-}
-
 paletero_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
-  colors <- paletero(palette, n = n, alpha = alpha, reverse = reverse)
+  colors <- paletas(palette, n = n, alpha = alpha, reverse = reverse)
   ramp <- colour_ramp(colors)
 }
 
@@ -21,6 +11,17 @@ viridis_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
   if(!palette %in% viridis_palettes)
     stop("Palette not in viridis")
   do.call(palette, list(n = n, direction = direction, alpha = alpha))
+}
+
+
+#' @export
+paletas <- function(palette,  n = NULL, alpha = NULL, reverse = FALSE){
+  if(!palette %in% availablePalettes())
+    stop("Palette not available")
+  if(palette %in% getBrewerPalettes())
+    return(brewer_pal(palette, n = n, alpha = alpha, reverse = reverse))
+  if(palette %in% getViridisPalettes())
+    return(viridis_pal(palette, n = n, alpha = alpha, reverse = reverse))
 }
 
 

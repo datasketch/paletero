@@ -1,4 +1,34 @@
 
+
+#' @export
+paletero <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = FALSE,
+                     by = NULL, colorScale = NULL, colorColName = "color"){
+  if("data.frame" %in% class(v)){
+    d <- v
+    v <- d[[by]]
+  }
+  scale <- colorScale %||% whichColorScale(v, colorScale = NULL)
+  if(!scale %in% c("cat","num","col"))
+    stop("vector is not categorical, numeric or a color.")
+  if(scale == "col"){
+    colsIdx <- areColors(v)
+    v[!colsIdx] <- NA
+    return(v)
+  }
+  colors <- do.call(paste0("paletero_",scale),
+                    list(
+                      v = v,
+                      palette = palette, na.color = na.color,
+                      alpha = alpha, reverse = reverse
+                    ))
+  if("data.frame" %in% class(v)){
+    d[[colorColName]] <- colors
+    return(d)
+  }
+  colors
+}
+
+
 #' @export
 paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = FALSE){
   if(!palette %in% availablePalettes())
@@ -7,7 +37,7 @@ paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL, reverse
     na.color <- paste0(na.color, as.hexmode(alpha*255))
   #strtoi("0xFF")
   domain <- unique(as.character(v[!is.na(v)]))
-  range <- paletero(palette, n = length(domain), alpha = alpha, reverse = reverse)
+  range <- paletas(palette, n = length(domain), alpha = alpha, reverse = reverse)
   colors <- match_replace(v, data.frame(domain, range, stringsAsFactors = FALSE))
   colors[is.na(v)] <- na.color
   colors
@@ -23,7 +53,7 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL, reverse
 
   rng <- range(v, na.rm = TRUE)
   domain <- scales::rescale(v, from = rng)
-  p <- paletero(palette, n = 2) # TODO handle cases for divergente, sequencial, etc.
+  p <- paletas(palette, n = 2) # TODO handle cases for divergente, sequencial, etc.
   ramp <- colour_ramp(p)
   colors <- ramp(domain)
   colors[is.na(v)] <- na.color
@@ -35,17 +65,40 @@ availablePalettes <- function(){
   c(getViridisPalettes(), getBrewerPalettes())
 }
 
+whichColorScale <- function(v, colorScale = NULL){
+  if(!is.null(colorScale)){
+    if(colorScale == "num")
+      v <- as.numeric(v)
+    if(colorScale == "cat")
+      v <- as.character(v)
+    if(colorScale == "col"){
+      colsIdx <- areColors(v)
+      v[!colsIdx] <- NA
+    }
+  }
+  if(is.numeric(v))
+    return("num")
+  if(is.factor(v))
+    v <- as.character(v)
+  if(is.character(v)){
+    if(all(areColors(v))){
+      return("col")
+    }else{
+      return("cat")
+    }
+  }
+  NULL
+}
+
+
+areColors <- function(x) {
+  sapply(x, function(X) {
+    tryCatch(is.matrix(col2rgb(X)),
+             error = function(e) FALSE)
+  })
+}
 
 
 
-# colorNumeric(palette, domain, na.color = "#808080", alpha = FALSE,
-#              reverse = FALSE)
-#
-# colorBin(palette, domain, bins = 7, pretty = TRUE, na.color = "#808080",
-#          alpha = FALSE, reverse = FALSE)
-#
-# colorQuantile(palette, domain, n = 4, probs = seq(0, 1, length.out = n + 1),
-#               na.color = "#808080", alpha = FALSE, reverse = FALSE)
-#
-# colorFactor(palette, domain, levels = NULL, ordered = FALSE,
-#             na.color = "#808080", alpha = FALSE, reverse = FALSE)
+
+
