@@ -2,6 +2,7 @@
 
 export(availablePalettes)
 export(paletas)
+export(paletero)
 export(paletero_cat)
 export(paletero_num)
 export(previewColors)
