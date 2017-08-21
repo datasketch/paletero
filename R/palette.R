@@ -1,6 +1,6 @@
 
 #' @export
-paletas <- function(palette,  n = NULL, alpha = NULL,
+paleta <- function(palette,  n = NULL, alpha = NULL,
                     reverse = FALSE, colors = NULL){
   if(!palette %in% availablePalettes())
     stop("Palette not available")
@@ -16,6 +16,7 @@ paletas <- function(palette,  n = NULL, alpha = NULL,
 
 viridis_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
   viridis_palettes <- getViridisPalettes()
+  n <- n %||% 10
   direction <- ifelse(reverse, -1, 1)
   if(!palette %in% viridis_palettes)
     stop("Palette not in viridis")
@@ -24,6 +25,7 @@ viridis_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
 
 paletero_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
   colors <- do.call(paste0("paletero_",palette), list())
+  n <- n %||% length(colors)
   colors <- colors[rep(1:length(colors), length.out = n)]
   if(reverse) return(rev(colors))
   if(!is.null(alpha)) return(paste0(colors, strtoi(alpha)))

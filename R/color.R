@@ -44,7 +44,7 @@ paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL,
     na.color <- paste0(na.color, as.hexmode(alpha*255))
   #strtoi("0xFF")
   domain <- unique(as.character(v[!is.na(v)]))
-  range <- paletas(palette, n = length(domain), alpha = alpha,
+  range <- paleta(palette, n = length(domain), alpha = alpha,
                    reverse = reverse, colors = colors)
   colors <- match_replace(v, data.frame(domain, range, stringsAsFactors = FALSE))
   colors[is.na(v)] <- na.color

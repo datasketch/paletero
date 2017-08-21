@@ -64,6 +64,7 @@ test_that("Palettes",{
   )
 
 
+
   previewColors("Set1",v/20)
   previewColors("Set2",1:5)
   previewColors("PuBu",1:100)
