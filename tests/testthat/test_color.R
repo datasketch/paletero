@@ -22,8 +22,6 @@ test_that("Palettes",{
   colors <- paletero(iris, palette = "Greys", by = "Species")
   expect_equal(length(unique(iris$Species)), length(unique(colors)))
 
-
-
   brewer_pal("Set1",3)
   viridis_pal("magma",n = 10)
 
@@ -39,6 +37,33 @@ test_that("Palettes",{
   paletero_num(v, "Greys")
   paletero_num(v, "magma")
 
+
+  dsPalette <- c("#95C11E",
+                 "#FFED00",
+                 "#E5007D",
+                 "#009EE3",
+                 "#F9B233",
+                 "#EF8998",
+                 "#16C5E0",
+                 "#A839B0",
+                 "#C92F2F",
+                 "#A9A9A9",
+                 "#9B71AF")
+  custom_pal(dsPalette,4)
+  paletero(1:10, dsPalette)
+  paletero(letters[1:10], dsPalette)
+  paletero(letters[1:20], dsPalette)
+
+  expect_equal(
+    paletero(letters[1:10], dsPalette),
+    paletero(letters[1:10], "datasketch")
+  )
+  expect_equal(
+    paletero(letters[1:20], dsPalette),
+    paletero(letters[1:20], "datasketch")
+  )
+
+
   previewColors("Set1",v/20)
   previewColors("Set2",1:5)
   previewColors("PuBu",1:100)
@@ -46,6 +71,7 @@ test_that("Palettes",{
   previewColors("viridis",LETTERS[1:3])
   previewColors("magma",1:100)
   previewColors("inferno",1:100)
-
+  previewColors("datasketch",1:2)
+  previewColors("amalia_light",1:2)
 
 })

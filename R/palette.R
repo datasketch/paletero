@@ -1,9 +1,18 @@
 
-paletero_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
-  colors <- paletas(palette, n = n, alpha = alpha, reverse = reverse)
-  ramp <- colour_ramp(colors)
+#' @export
+paletas <- function(palette,  n = NULL, alpha = NULL,
+                    reverse = FALSE, colors = NULL){
+  if(!palette %in% availablePalettes())
+    stop("Palette not available")
+  if(palette %in% getBrewerPalettes())
+    return(brewer_pal(palette, n = n, alpha = alpha, reverse = reverse))
+  if(palette %in% getViridisPalettes())
+    return(viridis_pal(palette, n = n, alpha = alpha, reverse = reverse))
+  if(palette %in% getPaleteroPalettes())
+    return(paletero_pal(palette, n = n, alpha = alpha, reverse = reverse))
+  if(palette == "custom")
+    return(custom_pal(colors, n = n, alpha = alpha, reverse = reverse))
 }
-
 
 viridis_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
   viridis_palettes <- getViridisPalettes()
@@ -13,15 +22,21 @@ viridis_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
   do.call(palette, list(n = n, direction = direction, alpha = alpha))
 }
 
+paletero_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
+  colors <- do.call(paste0("paletero_",palette), list())
+  colors <- colors[rep(1:length(colors), length.out = n)]
+  if(reverse) return(rev(colors))
+  if(!is.null(alpha)) return(paste0(colors, strtoi(alpha)))
+  colors
+}
 
-#' @export
-paletas <- function(palette,  n = NULL, alpha = NULL, reverse = FALSE){
-  if(!palette %in% availablePalettes())
-    stop("Palette not available")
-  if(palette %in% getBrewerPalettes())
-    return(brewer_pal(palette, n = n, alpha = alpha, reverse = reverse))
-  if(palette %in% getViridisPalettes())
-    return(viridis_pal(palette, n = n, alpha = alpha, reverse = reverse))
+custom_pal <- function(colors, n = NULL, alpha = NULL, reverse = FALSE){
+  colors <- unique(colors)
+  n_max <- length(colors)
+  colors <- colors[rep(1:length(colors), length.out = n)]
+  if(reverse) return(rev(colors))
+  if(!is.null(alpha)) return(paste0(colors, strtoi(alpha)))
+  colors
 }
 
 

@@ -3,6 +3,12 @@
 #' @export
 paletero <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = FALSE,
                      by = NULL, colorScale = NULL, colorColName = "color"){
+  if(all(areColors(palette))){
+    colors <- palette
+    palette <- "custom"
+  }else{
+    colors <- NULL
+  }
   if("data.frame" %in% class(v)){
     d <- v
     v <- d[[by]]
@@ -19,7 +25,7 @@ paletero <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = F
                     list(
                       v = v,
                       palette = palette, na.color = na.color,
-                      alpha = alpha, reverse = reverse
+                      alpha = alpha, reverse = reverse, colors = colors
                     ))
   if("data.frame" %in% class(v)){
     d[[colorColName]] <- colors
@@ -30,21 +36,24 @@ paletero <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = F
 
 
 #' @export
-paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = FALSE){
+paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL,
+                         reverse = FALSE, colors = NULL){
   if(!palette %in% availablePalettes())
     stop("Palette not available")
   if(!is.null(alpha))
     na.color <- paste0(na.color, as.hexmode(alpha*255))
   #strtoi("0xFF")
   domain <- unique(as.character(v[!is.na(v)]))
-  range <- paletas(palette, n = length(domain), alpha = alpha, reverse = reverse)
+  range <- paletas(palette, n = length(domain), alpha = alpha,
+                   reverse = reverse, colors = colors)
   colors <- match_replace(v, data.frame(domain, range, stringsAsFactors = FALSE))
   colors[is.na(v)] <- na.color
   colors
 }
 
 #' @export
-paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = FALSE){
+paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL,
+                         reverse = FALSE, colors = NULL){
   if(!palette %in% availablePalettes())
     stop("Palette not available")
   if(!is.null(alpha))
@@ -53,7 +62,7 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL, reverse
 
   rng <- range(v, na.rm = TRUE)
   domain <- scales::rescale(v, from = rng)
-  p <- paletas(palette, n = 2) # TODO handle cases for divergente, sequencial, etc.
+  p <- paletas(palette, n = 2, colors = colors) # TODO handle cases for divergente, sequencial, etc.
   ramp <- colour_ramp(p)
   colors <- ramp(domain)
   colors[is.na(v)] <- na.color
@@ -62,7 +71,7 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL, reverse
 
 #' @export
 availablePalettes <- function(){
-  c(getViridisPalettes(), getBrewerPalettes())
+  c(getViridisPalettes(), getBrewerPalettes(),getPaleteroPalettes(),"custom")
 }
 
 whichColorScale <- function(v, colorScale = NULL){
