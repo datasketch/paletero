@@ -62,7 +62,7 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL,
 
   rng <- range(v, na.rm = TRUE)
   domain <- scales::rescale(v, from = rng)
-  p <- paletas(palette, n = 2, colors = colors) # TODO handle cases for divergente, sequencial, etc.
+  p <- paleta(palette, n = 2, colors = colors) # TODO handle cases for divergente, sequencial, etc.
   ramp <- colour_ramp(p)
   colors <- ramp(domain)
   colors[is.na(v)] <- na.color

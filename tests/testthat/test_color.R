@@ -4,7 +4,7 @@ test_that("Palettes",{
 
   v <- sample(letters[1:5], 10, replace = TRUE)
   expect_equal(whichColorScale(v),"cat")
-  expect_true(all(paletero(v, palette = "Set2") %in% paletas("Set2")))
+  expect_true(all(paletero(v, palette = "Set2") %in% paleta("Set2")))
 
   v <- runif(10)
   expect_equal(whichColorScale(v),"num")
@@ -30,7 +30,7 @@ test_that("Palettes",{
   palette <- "Set1"
   paletero_cat(v, palette)
 
-  paletas("Greys")
+  paleta("Greys")
 
   v <- 1:20
   v[sample(10,1)] <- NA
