@@ -20,7 +20,8 @@ viridis_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
   direction <- ifelse(reverse, -1, 1)
   if(!palette %in% viridis_palettes)
     stop("Palette not in viridis")
-  do.call(palette, list(n = n, direction = direction, alpha = alpha))
+  palette <- paste0("viridisLite::", palette)
+  do.call.namespace(palette, list(n = n, direction = direction, alpha = alpha))
 }
 
 paletero_pal <- function(palette, n = NULL, alpha = NULL, reverse = FALSE){
@@ -87,4 +88,5 @@ getBrewerPalettes <- function(){
 
 getViridisPalettes <- function(){
   c("viridis","magma", "plasma","inferno")
+
 }
