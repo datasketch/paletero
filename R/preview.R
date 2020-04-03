@@ -4,6 +4,19 @@
 #' @param values A set of values to preview colors for
 #' @return An HTML-based list of the colors and values
 #' @export
+preview_colors <- function(palette, values) {
+  colors <- paletero(values, palette)
+  scales::show_col(colors)
+}
+
+
+
+#' Color previewing utility
+#'
+#' @param pal A color mapping function, like those returned from \code{\link{colorNumeric}}, et al
+#' @param values A set of values to preview colors for
+#' @return An HTML-based list of the colors and values
+#' @export
 previewColors <- function(palette, values) {
 
   values <- v

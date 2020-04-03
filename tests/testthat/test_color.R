@@ -50,6 +50,7 @@ test_that("Palettes",{
                  "#A9A9A9",
                  "#9B71AF")
   custom_pal(dsPalette,4)
+  custom_pal("#4578f0",4)
   paletero(1:10, dsPalette)
   paletero(letters[1:10], dsPalette)
   paletero(letters[1:20], dsPalette)
@@ -64,6 +65,15 @@ test_that("Palettes",{
   )
 
 
+  preview_colors("Set1",v/20)
+  preview_colors("Set2",1:5)
+  preview_colors("PuBu",1:100)
+  preview_colors("Set1",LETTERS[1:3])
+  preview_colors("viridis",LETTERS[1:3])
+  preview_colors("magma",1:100)
+  preview_colors("inferno",1:100)
+  preview_colors("datasketch",1:2)
+  preview_colors("amalia_light",1:2)
 
   previewColors("Set1",v/20)
   previewColors("Set2",1:5)
