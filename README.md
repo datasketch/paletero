@@ -33,3 +33,10 @@ This is a basic example which shows you how to solve a common problem:
 # library(paletero)
 ## basic example code
 ```
+
+## TODO’s
+
+  - Generate palette from a single color, or set of colors
+  - Contrast tool
+  - Generate palette from image
+  - Evaluate palette performance for light and dark backgrounds

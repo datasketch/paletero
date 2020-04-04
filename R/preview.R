@@ -4,9 +4,13 @@
 #' @param values A set of values to preview colors for
 #' @return An HTML-based list of the colors and values
 #' @export
-preview_colors <- function(palette, values) {
-  colors <- paletero(values, palette)
-  scales::show_col(colors)
+preview_colors <- function(values, palette = NULL) {
+  if(!is.null(palette)){
+    colors <- paletero(values, palette)
+    scales::show_col(colors)
+  } else{
+    scales::show_col(values)
+  }
 }
 
 

@@ -19,7 +19,8 @@ Imports:
     farver,
     scales,
     RColorBrewer,
-    viridisLite
+    viridisLite,
+    homodatum
 Suggests:
     testthat (>= 2.1.0),
     knitr,

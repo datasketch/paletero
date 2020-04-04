@@ -13,7 +13,7 @@ paletero <- function(v, palette, na.color = "#808080", alpha = NULL, reverse = F
     d <- v
     v <- d[[by]]
   }
-  scale <- colorScale %||% whichColorScale(v, colorScale = NULL)
+  scale <- colorScale %||% which_color_scale(v, colorScale = NULL)
   if(!scale %in% c("cat","num","col"))
     stop("vector is not categorical, numeric or a color.")
   if(scale == "col"){
@@ -72,39 +72,6 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL,
 #' @export
 availablePalettes <- function(){
   c(getViridisPalettes(), getBrewerPalettes(),getPaleteroPalettes(),"custom")
-}
-
-whichColorScale <- function(v, colorScale = NULL){
-  if(!is.null(colorScale)){
-    if(colorScale == "num")
-      v <- as.numeric(v)
-    if(colorScale == "cat")
-      v <- as.character(v)
-    if(colorScale == "col"){
-      colsIdx <- areColors(v)
-      v[!colsIdx] <- NA
-    }
-  }
-  if(is.numeric(v))
-    return("num")
-  if(is.factor(v))
-    v <- as.character(v)
-  if(is.character(v)){
-    if(all(areColors(v))){
-      return("col")
-    }else{
-      return("cat")
-    }
-  }
-  NULL
-}
-
-
-areColors <- function(x) {
-  sapply(x, function(X) {
-    tryCatch(is.matrix(col2rgb(X)),
-             error = function(e) FALSE)
-  })
 }
 
 

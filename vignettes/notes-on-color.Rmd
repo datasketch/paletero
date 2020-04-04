@@ -1,0 +1,32 @@
+---
+title: "notes-on-color"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{notes-on-color}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(paletero)
+```
+
+
+num (continuous)
+seq (discrete) one hue, using luminance or saturation to define scale
+cat (discrete) qualitative 8ok, more than 12... no way. color hues
+div (continuous/discrete) two hues, decreasing in saturation or
+luminance towards a neutral (usually white, black or gray).
+accent -> darker or more saturated colors
+
+Light vs Dark
+https://learnui.design/tools/data-color-picker.html#palette
+
+

@@ -4,7 +4,7 @@
 \alias{preview_colors}
 \title{Color previewing utility}
 \usage{
-preview_colors(palette, values)
+preview_colors(values, palette = NULL)
 }
 \arguments{
 \item{values}{A set of values to preview colors for}

@@ -3,21 +3,21 @@ context("paletero")
 test_that("Palettes",{
 
   v <- sample(letters[1:5], 10, replace = TRUE)
-  expect_equal(whichColorScale(v),"cat")
+  expect_equal(which_color_scale(v),"cat")
   expect_true(all(paletero(v, palette = "Set2") %in% paleta("Set2")))
 
   v <- runif(10)
-  expect_equal(whichColorScale(v),"num")
+  expect_equal(which_color_scale(v),"num")
   colors <- paletero(v, palette = "Greys")
 
   v <- c("red","#002323", 1, "blue","xxx")
-  expect_equal(whichColorScale(v),"cat")
-  expect_equal(whichColorScale(v, colorScale = "col"),"col")
+  expect_equal(which_color_scale(v),"cat")
+  expect_equal(which_color_scale(v, colorScale = "col"),"col")
   v[!areColors(v)] <- NA
   expect_equal(v, paletero(v, palette = "Greys", colorScale = "col"))
 
   v <- iris$Species # when v is factor
-  expect_equal(whichColorScale(v),"cat")
+  expect_equal(which_color_scale(v),"cat")
 
   colors <- paletero(iris, palette = "Greys", by = "Species")
   expect_equal(length(unique(iris$Species)), length(unique(colors)))
@@ -65,15 +65,16 @@ test_that("Palettes",{
   )
 
 
-  preview_colors("Set1",v/20)
-  preview_colors("Set2",1:5)
-  preview_colors("PuBu",1:100)
-  preview_colors("Set1",LETTERS[1:3])
-  preview_colors("viridis",LETTERS[1:3])
-  preview_colors("magma",1:100)
-  preview_colors("inferno",1:100)
-  preview_colors("datasketch",1:2)
-  preview_colors("amalia_light",1:2)
+  preview_colors(c("#fdaffd","#dc3434","#3434dc"))
+  preview_colors(v/20,"Set1")
+  preview_colors(1:5,"Set2")
+  preview_colors(1:100,"PuBu")
+  preview_colors(LETTERS[1:3],"Set1")
+  preview_colors(LETTERS[1:3],"viridis")
+  preview_colors(1:100,"magma")
+  preview_colors(1:100,"inferno")
+  preview_colors(1:2,"datasketch")
+  preview_colors(1:2,"amalia_light")
 
   previewColors("Set1",v/20)
   previewColors("Set2",1:5)
