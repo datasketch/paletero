@@ -52,6 +52,9 @@ test_that("Palettes",{
   custom_pal(dsPalette,4)
   custom_pal("#4578f0",4)
   paletero(1:10, dsPalette)
+
+  # estimar solo los colores nuevos, o repetir
+
   paletero(letters[1:10], dsPalette)
   paletero(letters[1:20], dsPalette)
 
