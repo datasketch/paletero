@@ -1,14 +1,15 @@
-
+#' @import magick
 #' @export
 img_palette <- function(img, n = 8,
-                          n_quant = n * 2,
-                          type = "cat",
-                          include_bg = FALSE){
+                        n_quant = n * 2,
+                        type = "cat",
+                        include_bg = FALSE,
+                        fuzz = 12 ){
   if(class(img) == "character"){
     img <- image_read(img) %>% image_scale("300")
   }
   if(!include_bg){
-    img <- img_foreground(img)
+    img <- img_foreground(img, fuzz = fuzz)
   }
   img_quant <- image_quantize(img, n_quant)
 
@@ -35,11 +36,11 @@ img_palette <- function(img, n = 8,
 }
 
 #' @export
-img_background_color <- function(img, method = "mean"){
+img_background_color <- function(img, method = "mode", fuzz = 12){
   if(class(img) == "character"){
     img <- image_read(img) %>% image_scale("300")
   }
-  backgr <- img_background(img)
+  backgr <- img_background(img, fuzz = fuzz)
 
   backgr_quant <- backgr %>% image_quantize(5)
   # backgr_quant <- image_quantize(backgr, 10)
@@ -63,15 +64,21 @@ Mode <- function(x) {
   ux[which.max(tabulate(match(x, ux)))]
 }
 
-
+#' @export
 img_background <- function(img, fuzz = 12){
+  if(class(img) == "character"){
+    img <- image_read(img) %>% image_scale("300")
+  }
   back_mask <- background_mask(img, fuzz = fuzz)
   img_png <- image_convert(img, format = "png")
   image_composite(img_png, back_mask, operator = "CopyOpacity")
 }
 
-
+#' @export
 img_foreground <- function(img, fuzz = 12){
+  if(class(img) == "character"){
+    img <- image_read(img) %>% image_scale("300")
+  }
   fore_mask <- foreground_mask(img, fuzz = fuzz)
   img_png <- image_convert(img, format = "png")
   image_composite(img_png, fore_mask, operator = "CopyOpacity")
