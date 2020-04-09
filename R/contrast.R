@@ -18,3 +18,7 @@ contrast_ratios <- function(in_colors,
   dark_ratio <- (lumi/100 + 0.05) / (ld_luminance[2] + 0.05)
   tibble::tibble(in_colors, light = light_ratio, dark = dark_ratio)
 }
+
+
+
+
