@@ -1,3 +1,4 @@
+#' @export
 map_colors <- function(data, color_by = NULL, palette = NULL,
                        colors_df = NULL,
                        preview = FALSE){
