@@ -18,12 +18,10 @@ Depends:
 Imports: 
     farver,
     scales,
-    RColorBrewer,
-    viridisLite,
-    homodatum,
-    paletteer
+    homodatum
 Suggests:
     testthat (>= 2.1.0),
+    paletteer,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
