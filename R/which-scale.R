@@ -1,21 +1,21 @@
 
 #' @export
 #' @import homodatum
-which_color_scale <- function(v, colorScale = NULL){
+which_color_scale <- function(v, scale = NULL, palette = NULL){
 
   if(is_Cat(v) || is_Bin(v) || is_Yea(v)) return("cat")
   if(is_Num(v) || is_Pct(c)) return("num")
   if(is_any_hdType(v)){
-    return("cat")
     message("hdType found, defaulting to cat")
+    return("cat")
   }
 
-  if(!is.null(colorScale)){
-    if(colorScale == "num")
+  if(!is.null(scale)){
+    if(scale == "num")
       v <- as.numeric(v)
-    if(colorScale == "cat")
+    if(scale == "cat")
       v <- as.character(v)
-    if(colorScale == "col"){
+    if(scale == "col"){
       colsIdx <- areColors(v)
       v[!colsIdx] <- NA
     }
@@ -31,6 +31,8 @@ which_color_scale <- function(v, colorScale = NULL){
       return("cat")
     }
   }
+
+
   NULL
 }
 

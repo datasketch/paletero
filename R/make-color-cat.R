@@ -29,9 +29,9 @@ color_dist <- function(in_colors, ref_colors){
   pals <- decode_colour(ref_colors)
   comp <- compare_colour(pals, r, 'rgb', method = 'cie2000')
   colnames(comp) <- in_colors
-  comp <- comp %>% as_tibble()
-  tmp <- cbind(tibble(ref_colors = ref_colors), comp)
-  dist <- pivot_longer(tmp, -ref_colors,
+  comp <- comp %>% tibble::as_tibble()
+  tmp <- cbind(tibble::tibble(ref_colors = ref_colors), comp)
+  dist <- tidyr::pivot_longer(tmp, -ref_colors,
                        names_to = "in_color",
                        values_to = "distance")
   dist
@@ -41,34 +41,28 @@ color_dist <- function(in_colors, ref_colors){
 which_palette <- function(in_colors, radius = 10,
                           n_pal_max = 5, n_colors_max = 20){
   # n_col_max, return palettes only with up to n_colors_max colors
+
   pals <- paletero::palettes %>%
-    group_by(palette_name) %>%
-    filter(n() <= n_colors_max)
-  dist <- color_dist(in_colors, pals$color)
+    dplyr::group_by(palette_name) %>%
+    dplyr::filter(dplyr::n() <= n_colors_max)
+  dist <- color_dist(in_colors, pals$colors)
   top_colors <- dist %>%
-    group_by(in_color) %>%
-    arrange(distance) %>%
-    filter(distance < radius)
+    dplyr::group_by(in_color) %>%
+    dplyr::arrange(distance) %>%
+    dplyr::filter(distance < radius)
     # slice(1:100)
   top_pals <- top_colors %>%
-    left_join(pals, by = c("ref_colors" = "color")) %>%
-    distinct(in_color, palette_name, .keep_all = TRUE)
+    dplyr::left_join(pals, by = c("ref_colors" = "colors")) %>%
+    dplyr::distinct(in_color, palette_name, .keep_all = TRUE)
   top_palettes_all_colors <- top_pals %>%
-    group_by(palette_name) %>%
-    filter(n() >= length(in_colors)) %>%
-    summarise(total_distance = sum(distance)) %>%
-    arrange(total_distance) %>%
-    slice(1:n_pal_max)
-  pull(top_palettes_all_colors, palette_name)
+    dplyr::group_by(palette_name) %>%
+    dplyr::filter(dplyr::n() >= length(in_colors)) %>%
+    dplyr::summarise(total_distance = sum(distance)) %>%
+    dplyr::arrange(total_distance) %>%
+    dplyr::slice(1:n_pal_max)
+  dplyr::pull(top_palettes_all_colors, palette_name)
 }
 
-#' @export
-paletteer_colors <- function(pal_name){
-  pals <- paletero::palettes
-  pals %>%
-    filter(palette_name == pal_name) %>%
-    pull(color)
-}
 
 
 
