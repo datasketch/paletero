@@ -41,7 +41,7 @@ palette_colors <- function(pal_name){
 
 
 get_colors <- function(pal_name){
-  palettes <- paletero::palettes
+  palettes <- paletero:::palettes
   pals <- palettes %>% dplyr::filter(name == pal_name | palette_name == pal_name)
   if(nrow(pals) == 0) stop("Palette not found")
   if(length(unique(pals$palette_name)) > 1)
@@ -57,8 +57,8 @@ get_colors <- function(pal_name){
 
 #' @export
 availablePalettes <- function(){
-  palettes <- paletero::palettes
-  c(palettes$name, palettes$palette_name)
+  palettes <- paletero:::palettes
+  c(unique(palettes$name), unique(palettes$palette_name))
 }
 
 

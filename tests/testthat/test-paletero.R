@@ -9,6 +9,8 @@ test_that("Paleta",{
   paleta("RColorBrewer::Purples")
   paleta("magma")
 
+  "Greys" %in% availablePalettes()
+
 })
 
 

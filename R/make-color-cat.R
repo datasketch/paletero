@@ -42,7 +42,7 @@ which_palette <- function(in_colors, radius = 10,
                           n_pal_max = 5, n_colors_max = 20){
   # n_col_max, return palettes only with up to n_colors_max colors
 
-  pals <- paletero::palettes %>%
+  pals <- paletero:::palettes %>%
     dplyr::group_by(palette_name) %>%
     dplyr::filter(dplyr::n() <= n_colors_max)
   dist <- color_dist(in_colors, pals$colors)
