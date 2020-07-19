@@ -3,7 +3,7 @@ map_colors <- function(data, color_by = NULL, palette = NULL,
                        colors_df = NULL,
                        preview = FALSE){
 
-  if(is.null(palette)) stop("need a palette")
+  if(is.null(palette) || class(palette) == "function") stop("Need a palette")
   f <- fringe(data)
   if(is.empty(color_by)){
     palette <- palette[1]
