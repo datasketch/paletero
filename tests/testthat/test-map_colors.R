@@ -4,6 +4,8 @@ test_that("Test map colors", {
 
   data <- data.frame(x = Cat(1:10))
 
+  map_colors(data, palette = "magma")
+
   map_colors(data, color_by = 1, palette = "magma")
 
   data <- sample_data("Cat-Num")

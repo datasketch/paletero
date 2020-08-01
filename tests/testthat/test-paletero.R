@@ -13,9 +13,18 @@ test_that("Paleta",{
 
 })
 
+test_that("paleter_num works",{
 
+  v <- rep(1,5)
+  colors <- paletero_num(v, palette = "magma")
+  expect_equal(unique(colors), "#B6367A")
+
+})
 
 test_that("Palettes",{
+
+  v <- rep(1,5)
+  paletero(v, palette = "magma")
 
   v <- c("A", "A", "B", "C", "D", "C", "B", "B")
   expect_equal(which_color_scale(v),"cat")

@@ -31,7 +31,7 @@ paletero <- function(v, palette, scale = NULL, by = NULL,
   }
   f_num <- function(v, scale = "num"){
     paletero_num(v, palette = palette, na.color = na.color,
-                 alpha = alpha, reverse = reverse, colors = colors)
+                 alpha = alpha, reverse = reverse)
   }
 
   if(scale == "cat") f <- f_cat
@@ -50,7 +50,7 @@ paletero <- function(v, palette, scale = NULL, by = NULL,
 
 #' @export
 paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL,
-                         reverse = FALSE, colors = NULL, recycle = "lighter"){
+                         reverse = FALSE, recycle = "lighter"){
   if(!areColors(palette) && !palette %in% availablePalettes())
     stop("Palette not available")
   if(!is.null(alpha))
@@ -62,12 +62,12 @@ paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL,
                   reverse = reverse, recycle = recycle, type = "qualitative")
   colors <- match_replace(v, data.frame(domain, range, stringsAsFactors = FALSE))
   colors[is.na(v)] <- na.color
-  colors
+  remove_transparency(colors)
 }
 
 #' @export
 paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL,
-                         reverse = FALSE, colors = NULL){
+                         reverse = FALSE){
   if(!areColors(palette) && !palette %in% availablePalettes())
     stop("Palette not available")
   if(!is.null(alpha))
@@ -78,7 +78,7 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL,
   ramp <- scales::colour_ramp(p)
   colors <- ramp(domain)
   colors[is.na(v)] <- na.color
-  colors
+  remove_transparency(colors)
 }
 
 

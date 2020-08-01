@@ -29,7 +29,7 @@ paleta <- function(name, n = NULL, alpha = NULL, reverse = FALSE,
   }
   if(reverse) colors <- rev(colors)
   if(!is.null(alpha)) colors <- paste0(colors, as.hexmode(alpha*255))
-  colors
+  remove_transparency(colors)
 
 }
 

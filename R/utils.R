@@ -11,6 +11,13 @@ do.call.namespace <- function(what, args, ...) {
   do.call(what, as.list(args), ...)
 }
 
+remove_transparency <- function(x){
+  if(nchar(x) == 9 && grepl("FF$",x)){
+    return(substring(x, 1, 7))
+  }
+  x
+}
+
 match_replace <- function(v,dic, force = TRUE){
   matches <- dic[[2]][match(v,dic[[1]])]
   out <- matches
