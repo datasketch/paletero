@@ -6,6 +6,13 @@ test_that("Paleta",{
   paleta("Set1", n = 5)
   expect_equal(paleta("Set1", n = 12), c(set1, lighten(set1)[1:3]))
 
+  # test extension for more categories
+  lighten1 <- lighten(set1)
+  lighten2 <- lighten(lighten1)
+  lighten3 <- lighten(lighten2)
+  lighten4 <- lighten(lighten3)
+  expect_equal(paleta("Set1", n = 34), c(set1, lighten1, lighten2, lighten3, lighten4)[1:34])
+
   paleta("RColorBrewer::Purples")
   paleta("magma")
 
