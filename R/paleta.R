@@ -21,7 +21,12 @@ paleta <- function(name, n = NULL, alpha = NULL, reverse = FALSE,
     } else if(pal$type == "qualitative"){
       colors <- pal$colors
       if(n > pal$length){
-        colors <- c(pal$colors, lighten(pal$colors), lighten(lighten(pal$colors)))
+        colors <- pal$colors
+        extra_colors <- colors
+        while(n > length(colors)){
+          extra_colors <- lighten(extra_colors)
+          colors <- c(colors, extra_colors)
+        }
         warning("Recycling with ", recycle, " colors.")
       }
       colors <- colors[1:n]
