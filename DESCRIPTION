@@ -25,5 +25,7 @@ Suggests:
     paletteer,
     knitr,
     rmarkdown
+Remotes:
+    datasketch/homodatum
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
