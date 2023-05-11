@@ -12,7 +12,7 @@ do.call.namespace <- function(what, args, ...) {
 }
 
 remove_transparency <- function(x){
-  if(nchar(x) == 9 && grepl("FF$",x)){
+  if(sum(nchar(x)) == 9 && grepl("FF$",x)){
     return(substring(x, 1, 7))
   }
   x
