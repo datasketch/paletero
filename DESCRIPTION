@@ -14,18 +14,20 @@ Encoding: UTF-8
 LazyData: true
 BugReports: https://github.com/datasketch/paletero/issues
 Depends:
-    R (>= 3.1)
+    R (>= 3.1),
+    vctrs
 Imports: 
+    hdtable,
     farver,
     scales,
-    homodatum,
-    magick
+    magick,
+    colorBlindness
 Suggests:
     testthat (>= 2.1.0),
     paletteer,
     knitr,
     rmarkdown
 Remotes:
-    datasketch/homodatum
+    datasketch/hdtable
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3

@@ -26,16 +26,16 @@ match_replace <- function(v,dic, force = TRUE){
   out
 }
 
-`%||%` <- function (x, y)
-{
-  if (is.empty(x))
-    return(y)
-  else if (is.null(x) || is.na(x))
-    return(y)
-  else if (class(x) == "character" && sum(nchar(x), na.rm = T) == 0)
-    return(y)
-  else x
-}
+# `%||%` <- function (x, y)
+# {
+#   if (is.empty(x))
+#     return(y)
+#   else if (is.null(x) || is.na(x))
+#     return(y)
+#   else if (class(x) == "character" && sum(nchar(x), na.rm = T) == 0)
+#     return(y)
+#   else x
+# }
 
 is.empty <- function (x)
 {

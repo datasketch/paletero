@@ -1,11 +1,10 @@
 
 #' @export
-#' @import homodatum
 which_color_scale <- function(v, scale = NULL, palette = NULL){
 
   if(is_Cat(v) || is_Bin(v) || is_Yea(v)) return("cat")
   if(is_Num(v) || is_Pct(c)) return("num")
-  if(is_any_hdType(v)){
+  if(is_any_hdtype(v)){
     message("hdType found, defaulting to cat")
     return("cat")
   }

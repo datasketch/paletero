@@ -9,13 +9,13 @@ test_that("color blindness", {
   test_cvd(palette = c("Red", "Green", "blue"), background = "#454567")
 
 
-  library(ggmagic)
-  library(homodatum)
-
-  data <- sample_data("Cat-Num")
-  gg <- gg_bar_CatNum(data, color_by = names(data)[1])
-  gg
-  test_cvd(gg = gg)
+  # library(ggmagic)
+  # #library(homodatum)
+  #
+  # data <- sample_data("Cat-Num")
+  # gg <- gg_bar_CatNum(data, color_by = names(data)[1])
+  # gg
+  # test_cvd(gg = gg)
 
 
 
