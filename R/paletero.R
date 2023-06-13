@@ -1,57 +1,38 @@
 
-
 #' @export
-paletero <- function(v, palette, scale = NULL, by = NULL,
-                     na.color = "#808080", alpha = NULL,
-                     reverse = FALSE, recycle = "lighter",
-                     colorColName = "color",
-                     as_fun = FALSE){
+paletero <- function(v = NULL, palette = NULL, as_fun = FALSE, ...){
 
-  if("data.frame" %in% class(v)){
-    d <- v
-    v <- d[[by]]
+  palette_type <-  which_palette_type(v, type = NULL)
+
+  f_categorical <- function(v, palette = palette, ...){
+    paletero_categorical(v, palette = palette, ...)
+    # paletero_categorical(v, palette = palette, na.color = na.color,
+    #              alpha = alpha, reverse = reverse,
+    #              recycle = recycle)
   }
-
-  scale <- scale %||% which_color_scale(v, scale = NULL)
-  if(!is.null(scale)){
-    if(!scale %in% c("cat","num","col"))
-      stop("vector is not categorical, numeric or a color.")
-    if(scale == "col"){
-      colsIdx <- areColors(v)
-      v[!colsIdx] <- NA
-      return(v)
-    }
+  f_sequential <- function(v, palette = palette, ...){
+    # paletero_sequential(v, palette = palette, na.color = na.color,
+    #              alpha = alpha, reverse = reverse)
   }
-
-
-  f_cat <- function(v, scale = "cat"){
-    paletero_cat(v, palette = palette, na.color = na.color,
-                 alpha = alpha, reverse = reverse,
-                 recycle = recycle)
+  f_diverging <- function(v, palette = palette, ...){
+    # paletero_diverging(v, palette = palette, na.color = na.color,
+    #              alpha = alpha, reverse = reverse)
   }
-  f_num <- function(v, scale = "num"){
-    paletero_num(v, palette = palette, na.color = na.color,
-                 alpha = alpha, reverse = reverse)
-  }
-
-  if(scale == "cat") f <- f_cat
-  if(scale == "num") f <- f_num
-
+  f <- get(paste0("paletero_", palette_type))
   if(as_fun || is.null(v)) return(f)
 
-  colors <- f(v)
-  if("data.frame" %in% class(v)){
-    d[[colorColName]] <- colors
-    return(d)
-  }
+  colors <- f(v, palette = palette, ...)
   colors
 }
 
 
+
+
+
 #' @export
-paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL,
+paletero_categorical <- function(v, palette, na_color = "#808080", alpha = NULL,
                          reverse = FALSE, recycle = "lighter"){
-  if(!areColors(palette) && !palette %in% availablePalettes())
+  if(!are_colors(palette) && !palette %in% available_palettes())
     stop("Palette not available")
   if(!is.null(alpha))
     na.color <- paste0(na.color, as.hexmode(alpha*255))
@@ -60,15 +41,35 @@ paletero_cat <- function(v, palette, na.color = "#808080", alpha = NULL,
 
   range <- paleta(palette, n = length(domain), alpha = alpha,
                   reverse = reverse, recycle = recycle, type = "qualitative")
-  colors <- match_replace(v, data.frame(domain, range, stringsAsFactors = FALSE))
-  colors[is.na(v)] <- na.color
-  remove_transparency(colors)
+  dic <- data.frame(domain, range, stringsAsFactors = FALSE)
+  colors <- dstools::match_replace(v, dic)
+  colors[is.na(v)] <- na_color
+  #remove_transparency(colors)
+  prismatic::color(colors)
 }
 
 #' @export
-paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL,
+paletero_sequential <- function(v, palette, na_color = "#808080", alpha = NULL,
                          reverse = FALSE){
-  if(!areColors(palette) && !palette %in% availablePalettes())
+  if(!are_colors(palette) && !palette %in% available_palettes())
+    stop("Palette not available")
+  if(!is.null(alpha))
+    na.color <- paste0(na.color, as.hexmode(alpha*255))
+
+  domain <- scales::rescale(v, from = range(v, na.rm = TRUE))
+  p <- paleta(palette, n = NULL, type = "sequential")
+  ramp <- scales::colour_ramp(p)
+  colors <- ramp(domain)
+  colors[is.na(v)] <- na_color
+  #remove_transparency(colors)
+  prismatic::color(colors)
+}
+
+
+#' @export
+paletero_diverging <- function(v, palette, na_color = "#808080", alpha = NULL,
+                                reverse = FALSE){
+  if(!are_colors(palette) && !palette %in% available_palettes())
     stop("Palette not available")
   if(!is.null(alpha))
     na.color <- paste0(na.color, as.hexmode(alpha*255))
@@ -77,9 +78,11 @@ paletero_num <- function(v, palette, na.color = "#808080", alpha = NULL,
   p <- paleta(palette, n = NULL, type = "sequential") # TODO handle cases for divergente, sequencial, etc.
   ramp <- scales::colour_ramp(p)
   colors <- ramp(domain)
-  colors[is.na(v)] <- na.color
-  remove_transparency(colors)
+  colors[is.na(v)] <- na_color
+  #remove_transparency(colors)
+  prismatic::color(colors)
 }
+
 
 
 

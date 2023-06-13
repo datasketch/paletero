@@ -2,6 +2,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @import farver
 #' @importFrom dstools %||%
 #' @import vctrs
 #' @import hdtype

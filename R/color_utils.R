@@ -1,5 +1,41 @@
 
 
+are_colors <- function(x) {
+  all(sapply(x, function(X) {
+    tryCatch(is.matrix(col2rgb(X)),
+             error = function(e) FALSE)
+  }))
+}
+
+
+#' @export
+color_dist <- function(colors, ref_colors){
+  r <- decode_colour(colors)
+  pals <- decode_colour(ref_colors)
+  comp <- compare_colour(pals, r, 'rgb', method = 'cie2000')
+  colnames(comp) <- colors
+  comp <- comp %>% tibble::as_tibble()
+  tmp <- cbind(tibble::tibble(ref_colors = ref_colors), comp)
+  dist <- tidyr::pivot_longer(tmp, -ref_colors,
+                       names_to = "colors",
+                       values_to = "distance")
+  dist <- dist |>
+    dplyr::mutate(colors = prismatic::color(colors),
+                  ref_colors = prismatic::color(ref_colors)) |>
+    dplyr::select(colors, ref_colors, distance)
+  dist
+}
+
+
+
+# lighten <- function(color, times){
+#
+#   prismatic::clr_lighten(color)
+#
+# }
+
+
+
 color_lumuninance <- function(color){
   r <- decode_colour(color)
   xyz <- convert_colour(r, 'rgb', 'xyz')
@@ -29,6 +65,9 @@ which_contrast <- function(in_colors,
   if(nrow(contrast) == 1) return(unname(contrast$more_contrast[1]))
   contrast
 }
+
+
+
 
 
 

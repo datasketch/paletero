@@ -1,117 +1,20 @@
-context("paletero")
+test_that("Paletero 2", {
 
-test_that("Paleta",{
+  v <- NULL
+  expect_equal(which_palette_type(v, type = NULL), "categorical")
 
-  set1 <- paleta("Set1")
-  paleta("Set1", n = 5)
-  expect_equal(paleta("Set1", n = 12), c(set1, lighten(set1)[1:3]))
+  v <- 1:4
+  map1 <- paletero(1:4, palette = "viridis_magma")
 
-  # test extension for more categories
-  lighten1 <- lighten(set1)
-  lighten2 <- lighten(lighten1)
-  lighten3 <- lighten(lighten2)
-  lighten4 <- lighten(lighten3)
-  expect_equal(paleta("Set1", n = 34), c(set1, lighten1, lighten2, lighten3, lighten4)[1:34])
+  pal <- c("#000004", "#721F81", "#F1605D", "#FCFDBF")
+  map2 <- paletero(1:4, palette = pal)
 
-  paleta("RColorBrewer::Purples")
-  paleta("magma")
+  expect_equal(map1, map2)
 
-  "Greys" %in% availablePalettes()
+  cols <- paletero(c(NA, 1:4), palette = pal, na_color = "white")
+  expect_equal(as.character(cols[1]), "#FFFFFFFF")
 
 })
 
-test_that("paleter_num works",{
-
-  v <- rep(1,5)
-  colors <- paletero_num(v, palette = "magma")
-  expect_equal(unique(colors), "#B6367A")
-
-})
-
-test_that("Palettes",{
-
-  v <- rep(1,5)
-  paletero(v, palette = "magma")
-
-  v <- c("A", "A", "B", "C", "D", "C", "B", "B")
-  expect_equal(which_color_scale(v),"cat")
-  f <- paletero(v, palette = "Set2", as_fun = TRUE)
-  expect_equal(paletero(v, palette = "Set2"), f(v))
 
 
-  preview_colors(paleta("magma"))
-
-  preview_colors(paletero(v, palette = "magma"))
-
-  f <- paletero(v, palette = "Set2", as_fun = TRUE)
-  f(v)
-
-  expect_true(all(paletero(v, palette = "Set2") %in% paleta("Set2")))
-
-
-
-  v <- runif(10)
-  expect_equal(which_color_scale(v),"num")
-  colors <- paletero(v, palette = "Greys")
-  f <- paletero(v, palette = "Greys", as_fun = TRUE)
-  f(v)
-  expect_equal(paletero(v, palette = "Greys"), f(v))
-
-
-
-
-  v <- c("red","#002323", 1, "blue","xxx")
-  expect_equal(which_color_scale(v),"cat")
-  expect_equal(which_color_scale(v, scale = "col"),"col")
-  v[!areColors(v)] <- NA
-  expect_equal(v, paletero(v, palette = "Greys", scale = "col"))
-
-  v <- iris$Species # when v is factor
-  expect_equal(which_color_scale(v),"cat")
-
-  colors <- paletero(iris, palette = "Greys", by = "Species")
-  expect_equal(length(unique(iris$Species)), length(unique(colors)))
-
-
-  v <- sample(LETTERS[1:5],10, replace = TRUE)
-  v[sample(10,1)] <- NA
-  palette <- "Set1"
-  paletero_cat(v, palette)
-
-  paleta("Greys")
-
-  v <- 1:20
-  v[sample(10,1)] <- NA
-  paletero_num(v, "Greys")
-  paletero_num(v, "magma")
-
-
-  custom <- c("#95C11E",
-                 "#FFED00",
-                 "#E5007D",
-                 "#009EE3",
-                 "#F9B233",
-                 "#EF8998",
-                 "#16C5E0",
-                 "#A839B0",
-                 "#C92F2F",
-                 "#A9A9A9",
-                 "#9B71AF")
-  paletero(1:10, custom)
-
-  # estimar solo los colores nuevos, o repetir
-
-  v <- letters[1:10]
-  paletero(v, custom)
-  paletero(letters[1:20], custom)
-
-  preview_colors(c("#fdaffd","#dc3434","#3434dc"))
-  preview_colors(1:5,"Set2")
-  # preview_colors(1:100,"PuBu")
-  preview_colors(LETTERS[1:3],"Set1")
-  preview_colors(LETTERS[1:3],"viridis")
-  preview_colors(1:100,"magma")
-  preview_colors(1:100,"inferno")
-
-
-})
