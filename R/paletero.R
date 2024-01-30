@@ -1,15 +1,17 @@
 
 #' @export
 paletero <- function(df, var = NULL, colors = NULL, name = NULL,
-                     type = "categorical", color_var_name = "..colors"){
+                     type = "categorical",
+                     color_dic = NULL,
+                     color_var_name = "..colors"){
 
   if(is.null(colors) && is.null(name))
     stop("Need colors or a palette name")
   pal <- paleta(colors = colors, type = "categorical",
-              name = name)
+                name = name)
   if(is.null(var)) var <- 1
   v <- df[[var]]
-  colors <- pal$eval_categorical_pal(v)
+  colors <- pal$eval_categorical_pal(v, color_dic = color_dic)
   if(color_var_name %in% names(df))
     stop("color_var_name already in df" )
   df[[color_var_name]] <- colors
@@ -50,7 +52,7 @@ paletero_old <- function(v = NULL, palette = NULL, as_fun = FALSE, ...){
 
 #' @export
 paletero_categorical <- function(v, palette, na_color = "#808080", alpha = NULL,
-                         reverse = FALSE, recycle = "lighter"){
+                                 reverse = FALSE, recycle = "lighter"){
   if(!are_colors(palette) && !palette %in% available_palettes())
     stop("Palette not available")
   if(!is.null(alpha))
@@ -69,7 +71,7 @@ paletero_categorical <- function(v, palette, na_color = "#808080", alpha = NULL,
 
 #' @export
 paletero_sequential <- function(v, palette, na_color = "#808080", alpha = NULL,
-                         reverse = FALSE){
+                                reverse = FALSE){
   if(!are_colors(palette) && !palette %in% available_palettes())
     stop("Palette not available")
   if(!is.null(alpha))
@@ -87,7 +89,7 @@ paletero_sequential <- function(v, palette, na_color = "#808080", alpha = NULL,
 
 #' @export
 paletero_diverging <- function(v, palette, na_color = "#808080", alpha = NULL,
-                                reverse = FALSE){
+                               reverse = FALSE){
   if(!are_colors(palette) && !palette %in% available_palettes())
     stop("Palette not available")
   if(!is.null(alpha))

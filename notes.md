@@ -1,7 +1,6 @@
 
 
-- Entra df: decirle qué variable categórica quiero colorear, 
-  y pasarle los colores ..colors
+
 - Guardar temas de color
   - nuevo tema:
     - la paleta principal... categórica

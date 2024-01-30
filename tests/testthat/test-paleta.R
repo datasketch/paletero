@@ -11,12 +11,20 @@ test_that("Paleta from color vector", {
   p$recycle(14) # TODO FIX RECICLYNG
   v <- 1:3
   p$eval_categorical_pal(1:3)
+
   v <- c(1,1,4, 3, 5, 3)
   p$eval_categorical_pal(v)
 
   colors <- c("#5476b0", "#b96739")
   df <- data.frame(v = v)
   paletero(df, colors = colors)
+
+  paletero(data.frame(a = 1), colors = colors)
+  paletero(data.frame(a = 1), colors = colors, color_var_name = "..CLOS")
+
+
+  paletero(data.frame(a = 1), colors = colors,
+           color_dic = data.frame(v = 1, color = "#AAAAAA"))
 
 
 
