@@ -1,3 +1,36 @@
+
+test_that("Paleta from color vector", {
+
+  colors <- c("#5476b0", "#b96739")
+
+  p <- paleta(colors, type = "categorical")
+
+  p <- paleta(colors, type = "categorical", n = 5)
+  p
+  p$recycle(4)
+  p$recycle(14) # TODO FIX RECICLYNG
+  v <- 1:3
+  p$eval_categorical_pal(1:3)
+  v <- c(1,1,4, 3, 5, 3)
+  p$eval_categorical_pal(v)
+
+  colors <- c("#5476b0", "#b96739")
+  df <- data.frame(v = v)
+  paletero(df, colors = colors)
+
+
+
+  paleta(colors, type = "sequential", n = 10)
+
+
+
+
+
+
+})
+
+
+
 test_that("Paleta from name", {
 
   palettes <- available_palettes()
@@ -86,8 +119,6 @@ test_that("Paleta from list of colors", {
 
   paleta(name, n = 5, type = "sequential")
   paleta(name, n = 5, type = "diverging")
-
-
 
 
 })

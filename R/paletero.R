@@ -1,6 +1,25 @@
 
 #' @export
-paletero <- function(v = NULL, palette = NULL, as_fun = FALSE, ...){
+paletero <- function(df, var = NULL, colors = NULL, name = NULL,
+                     type = "categorical", color_var_name = "..colors"){
+
+  if(is.null(colors) && is.null(name))
+    stop("Need colors or a palette name")
+  pal <- paleta(colors = colors, type = "categorical",
+              name = name)
+  if(is.null(var)) var <- 1
+  v <- df[[var]]
+  colors <- pal$eval_categorical_pal(v)
+  if(color_var_name %in% names(df))
+    stop("color_var_name already in df" )
+  df[[color_var_name]] <- colors
+  df
+}
+
+
+
+#' @export
+paletero_old <- function(v = NULL, palette = NULL, as_fun = FALSE, ...){
 
   palette_type <-  which_palette_type(v, type = NULL)
 
