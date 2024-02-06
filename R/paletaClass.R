@@ -72,7 +72,7 @@ paletaClass <- R6::R6Class(
         }
         recycled <- purrr::accumulate(1:recycle_times,
                                       recycle_fun1, .init = self$colors)
-        colors <- prismatic::color(unlist(recycled))
+        colors <- prismatic::color(unlist(recycled))[1:n_input]
       }
       colors
     },

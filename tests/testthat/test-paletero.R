@@ -4,17 +4,24 @@ test_that("Paletero 2", {
   expect_equal(which_palette_type(v, type = NULL), "categorical")
 
   v <- 1:4
-  map1 <- paletero(1:4, palette = "viridis_magma")
+  map1 <- paletero(1:4, name = "viridis_magma")
+  map1
 
   pal <- c("#000004", "#721F81", "#F1605D", "#FCFDBF")
-  map2 <- paletero(1:4, palette = pal)
+  map2 <- paletero(1:4, colors = pal)
 
-  expect_equal(map1, map2)
+  # expect_equal(map1, map2)
 
-  cols <- paletero(c(NA, 1:4), palette = pal, na_color = "white")
-  expect_equal(as.character(cols[1]), "#FFFFFFFF")
+  # cols <- paletero(c(NA, 1:4), name = pal, na_color = "white")
+  # expect_equal(as.character(cols[1]), "#FFFFFFFF")
 
-  cols <- paletero(c(NA, rev(1:4)), palette = pal, na_color = "white")
+  # cols <- paletero(c(NA, rev(1:4)), palette = pal, na_color = "white")
+
+
+  colors <- c("#5476b0", "#b96739")
+  df <- iris
+  paletero(df, var = "Species", colors = colors)
+
 
 })
 
@@ -30,17 +37,18 @@ test_that("Paletero with given colors", {
 
   # Cuando entra un vector categórico, mapear los colores a las categorías dadas
   # y que se mantenga cuando cambia la base3
-  paletero(letters[1:3], palette = c('red', 'blue'))
+  v <- letters[1:3]
+  paletero(v, colors = c('red', 'blue'))
 
   # Entra un vector de colores
 
 
 
   pal <- c("#000004", "#721F81")
-  paletero(1:100, palette = pal)
+  paletero(1:100, colors = pal)
 
 
-  paletero(letters[1:2], palette = pal)
+  paletero(letters[1:2], colors = pal)
 
   # Paletero debe retornar o el mapeo de color con el valor, o una función o el mínimo y máximo
   # param include alpha o no

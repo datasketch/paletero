@@ -1,6 +1,7 @@
 
 
-
+- retornar funciones
+- para las numéricas: retornar el máximo
 - Guardar temas de color
   - nuevo tema:
     - la paleta principal... categórica
