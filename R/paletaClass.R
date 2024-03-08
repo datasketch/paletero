@@ -65,14 +65,7 @@ paletaClass <- R6::R6Class(
     },
     recycle = function(n_input){
       if(self$type == "categorical"){
-        if(n_input < self$n) return(self$colors[1:n_input])
-        recycle_times <- ceiling(self$n / n_input)
-        recycle_fun1 <- function(clrs, n = 1){
-          prismatic::clr_rotate(clrs, degrees = n * 30)
-        }
-        recycled <- purrr::accumulate(1:recycle_times,
-                                      recycle_fun1, .init = self$colors)
-        colors <- prismatic::color(unlist(recycled))[1:n_input]
+        colors <- recycle_categorical_colors(self$colors, n_input)
       }
       colors
     },

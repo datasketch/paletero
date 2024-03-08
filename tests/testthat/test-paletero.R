@@ -22,6 +22,8 @@ test_that("Paletero 2", {
   df <- iris
   paletero(df, var = "Species", colors = colors)
 
+  paletero(df, var = "Species", colors = c("#DADADA"))
+
 
 })
 

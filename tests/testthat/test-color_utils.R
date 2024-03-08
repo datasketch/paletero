@@ -45,6 +45,24 @@ test_that("Preview colors", {
 
 })
 
+test_that("Recycle works", {
+
+
+  expect_true(is_gray("#454545"))
+  expect_equal(is_gray(c("#454545", "#560000")), c(TRUE,FALSE))
+
+  colors <- c("#da0ada", "#0adada")
+  recycle_categorical_colors(colors, n_desired = 6)
+
+  colors <- "#dadada"
+  recycle_categorical_colors(colors, 3)
+  recycle_categorical_colors(colors, 9)
+
+  colors <- c("#dadada", "#f4f4f4")
+  recycle_categorical_colors(colors, 9)
+
+})
+
 
 
 
