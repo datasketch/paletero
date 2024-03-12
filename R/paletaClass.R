@@ -1,4 +1,3 @@
-
 paletaClass <- R6::R6Class(
   "paletaClass",
   public = list(
@@ -29,9 +28,6 @@ paletaClass <- R6::R6Class(
         pal <- get_palette(name)
         colors <- pal$colors
         self$input_colors <- pal$colors
-        #
-        #
-        #
       }
 
       if(self$type == "categorical"){
@@ -70,8 +66,8 @@ paletaClass <- R6::R6Class(
       colors
     },
     eval_categorical_pal = function(v, na_color = "#CCCCCC",
-                                     alpha = NULL,
-                                     color_dic = NULL){
+                                    alpha = NULL,
+                                    color_dic = NULL){
       if(!is.null(alpha))
         na_color <- paste0(na_color, as.hexmode(alpha*255))
 
@@ -92,17 +88,12 @@ paletaClass <- R6::R6Class(
       palette_type <-  self$type
       f_categorical <- function(v, palette = palette, ...){
         paletero_categorical(v, palette = palette, ...)
-        # paletero_categorical(v, palette = palette, na.color = na.color,
-        #              alpha = alpha, reverse = reverse,
-        #              recycle = recycle)
       }
       f_sequential <- function(v, palette = palette, ...){
         # paletero_sequential(v, palette = palette, na.color = na.color,
         #              alpha = alpha, reverse = reverse)
       }
       f_diverging <- function(v, palette = palette, ...){
-        # paletero_diverging(v, palette = palette, na.color = na.color,
-        #              alpha = alpha, reverse = reverse)
       }
       f <- get(paste0("paletero_", palette_type))
       if(as_fun || is.null(v)) return(f)
@@ -117,7 +108,3 @@ paletaClass <- R6::R6Class(
     }
   )
 )
-
-
-
-

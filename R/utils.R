@@ -1,5 +1,3 @@
-
-
 remove_transparency <- function(x){
   if(sum(nchar(x)) == 9 && grepl("FF$",x)){
     return(substring(x, 1, 7))
@@ -29,6 +27,3 @@ recycle_categorical_colors <- function(colors, n_desired){
                                 recycle_fun, .init = colors)
   prismatic::color(unlist(recycled))[1:n_desired]
 }
-
-
-

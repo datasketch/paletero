@@ -1,4 +1,3 @@
-
 #' @export
 palette_diverging <- function(colors, n = 5, mid_color = "#F0FAF0"){
 
@@ -30,7 +29,3 @@ palette_diverging <- function(colors, n = 5, mid_color = "#F0FAF0"){
 
   prismatic::color(colors)
 }
-
-
-
-

@@ -1,8 +1,5 @@
-
 #' @export
 palette_sequential <- function(colors, n = 5){
-
-  #colors <- "#54d7f9"
 
   if(!prismatic::is_color(colors))
     colors <- prismatic::color(colors)
@@ -27,4 +24,3 @@ palette_sequential <- function(colors, n = 5){
   prismatic::color(colors)
 
 }
-

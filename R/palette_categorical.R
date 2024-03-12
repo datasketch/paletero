@@ -1,11 +1,8 @@
-
-
 #' @export
 palette_categorical <- function(colors, n = 6,
-                                       mode = "rotate",
-                                       recycle = TRUE){
+                                mode = "rotate",
+                                recycle = TRUE){
 
-  #colors <- "#54d7f9"
   if(!prismatic::is_color(colors))
     colors <- prismatic::color(colors)
   n_input <- length(colors)
@@ -24,9 +21,3 @@ palette_categorical <- function(colors, n = 6,
   }
   colors[1:n]
 }
-
-
-
-
-
-
