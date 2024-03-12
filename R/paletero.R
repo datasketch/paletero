@@ -12,12 +12,14 @@ paletero <- function(v, var = NULL, colors = NULL, name = NULL,
   pal <- paleta(colors = colors, type = "categorical",
                 name = name)
 
-  print(pal)
+print(class(v))
   if(is.vector(v)){
     colors <- pal$eval_categorical_pal(v, color_dic = color_dic)
     return(colors)
   }
-
+  print(colors)
+  print("EVAAL DATA")
+  print(is.data.frame(v))
   if(is.data.frame(v)){
     df <- v
     if(is.null(var)) var <- 1
