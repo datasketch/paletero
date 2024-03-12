@@ -68,6 +68,8 @@ paletaClass <- R6::R6Class(
     eval_categorical_pal = function(v, na_color = "#CCCCCC",
                                     alpha = NULL,
                                     color_dic = NULL){
+
+      if (is.null(v)) return()
       print("in EVAL CATEOGORICAL")
       print(class(v))
       if(!is.null(alpha))
@@ -75,11 +77,13 @@ paletaClass <- R6::R6Class(
 
       domain <- unique(as.character(v[!is.na(v)]))
       range <- self$recycle(length(domain))
-      print(color_dic)
-      if(is.null(color_dic)){
-        color_dic <- data.frame(domain, range, stringsAsFactors = FALSE)
-      }
 
+      if(is.null(color_dic)){
+        print("DIC IS NULL")
+        color_dic <- data.frame(domain, range, stringsAsFactors = FALSE)
+        print(color_dic)
+      }
+   print("FUERA DE COLOR DIC")
       colors <- dstools::match_replace(v, color_dic)
       colors[is.na(v)] <- na_color
       #remove_transparency(colors)
