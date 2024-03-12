@@ -28,8 +28,11 @@ print(class(v))
     if(color_var_name %in% names(df))
       stop("color_var_name already in df" )
     df[[color_var_name]] <- colors
+    print("in eval dataframe")
+    print(df)
     return(df)
   }
+
   stop("not returning anything")
 
 }
