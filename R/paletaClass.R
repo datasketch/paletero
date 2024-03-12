@@ -80,7 +80,12 @@ paletaClass <- R6::R6Class(
 
       if(is.null(color_dic)){
         print("DIC IS NULL")
-        color_dic <- data.frame(domain, range, stringsAsFactors = FALSE)
+        print(class(domain))
+        print(class(range))
+        domain_vector <- as.vector(domain) # Convierte domain a vector si no lo es
+        range_vector <- as.vector(range) # Convierte range a vector si no lo es
+
+        color_dic <- data.frame(domain_vector, range_vector, stringsAsFactors = FALSE)
         print(color_dic)
       }
    print("FUERA DE COLOR DIC")
