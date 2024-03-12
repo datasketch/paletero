@@ -4,11 +4,15 @@ paletero <- function(v, var = NULL, colors = NULL, name = NULL,
                      color_dic = NULL,
                      color_var_name = "..colors"){
 
+  print("IN PALETERO")
   if(is.null(colors) && is.null(name)) stop("Need colors or a palette name")
-
+  print(colors)
+  print(name)
+  print("AHORA CALCUAL PALETA")
   pal <- paleta(colors = colors, type = "categorical",
                 name = name)
 
+  print(pal)
   if(is.vector(v)){
     colors <- pal$eval_categorical_pal(v, color_dic = color_dic)
     return(colors)
