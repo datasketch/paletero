@@ -23,8 +23,7 @@ Imports:
     prismatic,
     crayon,
     scales,
-    magick,
-    colorBlindness
+    magick
 Suggests:
     testthat (>= 2.1.0),
     paletteer,
