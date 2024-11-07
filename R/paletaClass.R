@@ -112,7 +112,7 @@ paletaClass <- R6::R6Class(
     },
     print = function(...) {
       cat("Palette Type: ", self$type, "\n")
-      print(self$colors)
+      # print(self$colors)
       invisible(self)  # To prevent default printing
     }
   )
