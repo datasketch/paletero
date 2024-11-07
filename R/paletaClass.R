@@ -70,8 +70,8 @@ paletaClass <- R6::R6Class(
                                     color_dic = NULL){
 
       if (is.null(v)) return()
-      print("in EVAL CATEOGORICAL")
-      print(class(v))
+      # print("in EVAL CATEOGORICAL")
+      # print(class(v))
       if(!is.null(alpha))
         na_color <- paste0(na_color, as.hexmode(alpha*255))
 
@@ -79,16 +79,16 @@ paletaClass <- R6::R6Class(
       range <- self$recycle(length(domain))
 
       if(is.null(color_dic)){
-        print("DIC IS NULL")
-        print(class(domain))
-        print(class(range))
+        # print("DIC IS NULL")
+        # print(class(domain))
+        # print(class(range))
         domain_vector <- as.vector(domain) # Convierte domain a vector si no lo es
         range_vector <- as.vector(range) # Convierte range a vector si no lo es
 
         color_dic <- data.frame(domain_vector, range_vector, stringsAsFactors = FALSE)
-        print(color_dic)
+        # print(color_dic)
       }
-   print("FUERA DE COLOR DIC")
+   # print("FUERA DE COLOR DIC")
       colors <- dstools::match_replace(v, color_dic)
       colors[is.na(v)] <- na_color
       #remove_transparency(colors)
@@ -113,7 +113,7 @@ paletaClass <- R6::R6Class(
     },
     print = function(...) {
       cat("Palette Type: ", self$type, "\n")
-      print(self$colors)
+      # print(self$colors)
       invisible(self)  # To prevent default printing
     }
   )

@@ -4,11 +4,11 @@ paletero <- function(v, var = NULL, colors = NULL, name = NULL,
                      color_dic = NULL,
                      color_var_name = "..colors"){
 
-  print("IN PALETERO")
+  # print("IN PALETERO")
   if(is.null(colors) && is.null(name)) stop("Need colors or a palette name")
-  print(colors)
-  print(name)
-  print("AHORA CALCUAL PALETA")
+  # print(colors)
+  # print(name)
+  # print("AHORA CALCUAL PALETA")
   pal <- paleta(colors = colors, type = "categorical",
                 name = name)
 
@@ -23,15 +23,15 @@ paletero <- function(v, var = NULL, colors = NULL, name = NULL,
     df <- v
     if(is.null(var)) var <- 1
     v <- df[[var]]
-print("ANTES DE EVAL")
+# print("ANTES DE EVAL")
     colors <- pal$eval_categorical_pal(v, color_dic = color_dic)
-print("despues de EVAL")
-    print(colors)
+# print("despues de EVAL")
+    # print(colors)
     if(color_var_name %in% names(df))
       stop("color_var_name already in df" )
     df[[color_var_name]] <- colors
-    print("in eval dataframe")
-    print(df)
+    # print("in eval dataframe")
+    # print(df)
     return(df)
   }
 
