@@ -1,10 +1,9 @@
-
-
-
 paleta <- function(colors = NULL, type = NULL,
-                   n = NULL, name = NULL, alpha = TRUE){
+                   n = NULL, name = NULL, alpha = TRUE,
+                   reverse = FALSE, recycle = TRUE){
   pal <- paletaClass$new(colors = colors, type = type, n = n,
-                  name = name, alpha = alpha)
+                  name = name, alpha = alpha,
+                  reverse = reverse, recycle = recycle)
   pal
 
 }

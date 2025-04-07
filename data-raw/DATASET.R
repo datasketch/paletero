@@ -30,8 +30,8 @@ pals_all <- pals_all |>
 
 pals <- transpose(pals_all)
 
-pals_tibble <- pals %>%
-  set_names(pals_all$palette_name) %>%
+pals_tibble <- pals |>
+  set_names(pals_all$palette_name) |>
   bind_rows(.id = "palette_name")
 
 
@@ -58,7 +58,7 @@ paletteer <- map(pals, function(x){
     package = x$package,
     colors = colors
   )}) %>%
-  set_names(pals_all$palette_name) %>%
+  set_names(pals_all$palette_name) |>
   bind_rows()
 
 paletteer <- paletteer |>
@@ -124,7 +124,7 @@ colorblindPalettes <- lapply(avpals, function(x){
   x$package = "colorBlindness"
   x$palette_name = paste(x$package, x$name, sep = "_")
   x
-}) %>% bind_rows()
+}) |>  bind_rows()
 
 
 

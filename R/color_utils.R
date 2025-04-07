@@ -14,7 +14,7 @@ color_dist <- function(colors, ref_colors){
   pals <- decode_colour(ref_colors)
   comp <- compare_colour(pals, r, 'rgb', method = 'cie2000')
   colnames(comp) <- colors
-  comp <- comp %>% tibble::as_tibble()
+  comp <- comp |>  tibble::as_tibble()
   tmp <- cbind(tibble::tibble(ref_colors = ref_colors), comp)
   dist <- tidyr::pivot_longer(tmp, -ref_colors,
                        names_to = "colors",
@@ -59,8 +59,8 @@ contrast_ratios <- function(in_colors,
 which_contrast <- function(in_colors,
                            light = "#ffffff",
                            dark = "#000000"){
-  contrast <- contrast_ratios(in_colors, light = light, dark = dark) %>%
-    dplyr::mutate(more_contrast = ifelse(light > dark, "light", "dark")) %>%
+  contrast <- contrast_ratios(in_colors, light = light, dark = dark) |>
+    dplyr::mutate(more_contrast = ifelse(light > dark, "light", "dark")) |>
     dplyr::select(-light, -dark)
   if(nrow(contrast) == 1) return(unname(contrast$more_contrast[1]))
   contrast

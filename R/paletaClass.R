@@ -1,4 +1,3 @@
-
 paletaClass <- R6::R6Class(
   "paletaClass",
   public = list(
@@ -13,7 +12,7 @@ paletaClass <- R6::R6Class(
     include_alpha = NULL,
     initialize = function(colors = NULL, type = "categorical", continuous = FALSE,
                           n = NULL, name = NULL, alpha = TRUE,
-                          include_alpha = NULL) {
+                          include_alpha = NULL, reverse = FALSE, recycle = TRUE) {
       self$input_colors <- prismatic::color(colors)
       self$type <- type %||% "categorical"
       self$continuous <- continuous
@@ -35,7 +34,6 @@ paletaClass <- R6::R6Class(
       }
 
       if(self$type == "categorical"){
-        recycle <- TRUE
         colors <- palette_categorical(colors, n = self$n, recycle = recycle)
       } else if(self$type == "sequential"){
         colors <- palette_sequential(colors, n = self$n)
@@ -44,6 +42,12 @@ paletaClass <- R6::R6Class(
       } else {
         self$colors <- colors
       }
+      
+      # Apply reverse if requested
+      if(reverse) {
+        colors <- rev(colors)
+      }
+      
       if(alpha){
         self$colors <- paste0(self$colors, as.hexmode(alpha*255))
       }
