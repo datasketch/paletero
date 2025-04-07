@@ -23,7 +23,10 @@ Imports:
     prismatic,
     crayon,
     scales,
-    magick
+    magick,
+    ggplot2,
+    tibble,
+    treemapify
 Suggests:
     testthat (>= 2.1.0),
     paletteer,
@@ -32,4 +35,4 @@ Suggests:
 Remotes:
     datasketch/hdtable
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
