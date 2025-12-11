@@ -15,8 +15,7 @@ LazyData: true
 BugReports: https://github.com/datasketch/paletero/issues
 Depends:
     R (>= 3.1),
-    vctrs,
-    hdtable
+    vctrs
 Imports:
     R6,
     farver,
@@ -29,7 +28,5 @@ Suggests:
     paletteer,
     knitr,
     rmarkdown
-Remotes:
-    datasketch/hdtable
 VignetteBuilder: knitr
 RoxygenNote: 7.3.1
